@@ -1,6 +1,7 @@
 package com.bridgelabz.employeepayrollapp.service;
 
 import com.bridgelabz.employeepayrollapp.dto.EmployeePayrollDTO;
+import com.bridgelabz.employeepayrollapp.exception.EmpPayRollException;
 import com.bridgelabz.employeepayrollapp.model.EmployeePayrollData;
 
 import com.bridgelabz.employeepayrollapp.repository.EmployeePayRollRepository;
@@ -18,14 +19,18 @@ public class EmployeePayrollService implements IEmployeePayrollService {
     public List<EmployeePayrollData> getEmployeePayrollData() {
         return employeePayRollRepository.findAll();
     }
-
     @Override
     public EmployeePayrollData getEmployeePayrollDataById(int empId) {
-        EmployeePayrollData empdata =  employeePayRollRepository.findById(empId).get();
-        return empdata;
-
+        if (employeePayRollRepository.findById(empId).isPresent())
+            return employeePayRollRepository.findById(empId).get();
+        else
+            throw new EmpPayRollException("Id Not Found !!");
 
     }
+
+
+
+
 
     @Override
     public EmployeePayrollData createEmployeePayrollData(EmployeePayrollDTO empPayrollDTO) {
