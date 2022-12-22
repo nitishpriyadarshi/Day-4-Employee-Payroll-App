@@ -2,14 +2,17 @@ package com.bridgelabz.employeepayrollapp.model;
 import com.bridgelabz.employeepayrollapp.dto.EmployeePayrollDTO;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import lombok.Data;
 
-@Data
+
+
 @Entity
+@Data
 public class EmployeePayrollData {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int employeeId;
     private String name;
     private long salary;
